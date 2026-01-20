@@ -1,3 +1,4 @@
 .env.*.local
 certs/
 volumes/
+webroot/
