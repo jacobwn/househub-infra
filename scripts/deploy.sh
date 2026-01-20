@@ -17,3 +17,5 @@ ENV_FILE=".env.${ENV}"
 
 IMAGE_TAG="$IMAGE_TAG" docker compose -f "$COMPOSE_FILE" --env-file "$ENV_FILE" pull
 IMAGE_TAG="$IMAGE_TAG" docker compose -f "$COMPOSE_FILE" --env-file "$ENV_FILE" up -d
+# Remove dangling images (unused layers)
+docker image prune -f
