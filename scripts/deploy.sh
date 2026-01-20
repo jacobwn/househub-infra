@@ -12,9 +12,6 @@ git fetch origin
 git reset --hard origin/main
 git clean -fd
 
-# Login to GHCR
-echo "$GHCR_PAT" | docker login ghcr.io -u myusername --password-stdin
-
 COMPOSE_FILE="docker-compose.${ENV}.yml"
 ENV_FILE=".env.${ENV}"
 
