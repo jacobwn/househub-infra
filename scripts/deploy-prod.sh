@@ -17,8 +17,8 @@ git fetch origin
 git checkout "$RELEASE"
 
 # Pull and deploy the images for this release
-IMAGE_TAG="$RELEASE" docker compose -f docker-compose.${ENV}.yaml --env-file .env.${ENV} pull
-IMAGE_TAG="$RELEASE" docker compose -f docker-compose.${ENV}.yaml --env-file .env.${ENV} up -d
+IMAGE_TAG="$RELEASE" docker compose -f docker-compose.prod.yaml --env-file .env.prod pull
+IMAGE_TAG="$RELEASE" docker compose -f docker-compose.prod.yaml --env-file .env.prod up -d
 
 # Cleanup unused images
 docker image prune -f

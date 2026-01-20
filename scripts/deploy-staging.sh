@@ -14,4 +14,4 @@ git clean -fd
 IMAGE_TAG="$IMAGE_TAG" docker compose -f docker-compose.staging.yaml --env-file .env.staging pull
 IMAGE_TAG="$IMAGE_TAG" docker compose -f docker-compose.staging.yaml --env-file .env.staging up -d
 # Remove dangling images (unused layers)
-docker image prune -f
+docker image prune -a -f
