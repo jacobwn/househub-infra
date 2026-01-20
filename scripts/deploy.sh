@@ -12,7 +12,7 @@ git fetch origin
 git reset --hard origin/main
 git clean -fd
 
-COMPOSE_FILE="docker-compose.${ENV}.yml"
+COMPOSE_FILE="docker-compose.${ENV}.yaml"
 ENV_FILE=".env.${ENV}"
 
 IMAGE_TAG="$IMAGE_TAG" docker compose -f "$COMPOSE_FILE" --env-file "$ENV_FILE" pull
