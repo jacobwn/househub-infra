@@ -1,0 +1,40 @@
+services:
+  postgres:
+    image: postgres:18-bookworm
+    expose:
+      - "5432"
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypass
+      POSTGRES_DB: mydb
+    volumes:
+        - postgres_data:/var/lib/postgresql
+  web:
+    image: ghcr.io/jacobwn/househub/web:${IMAGE_TAG}
+    expose:
+      - "3000"
+    environment:
+      DATABASE_URL: "postgresql://myuser:mypass@postgres:5432/mydb?schema=public"
+    depends_on: 
+      - postgres
+  nginx:
+    image: ghcr.io/jacobwn/househub/nginx:${IMAGE_TAG}
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt 
+    depends_on:
+      - web
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /var/lib/letsencrypt:/var/lib/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock
+    entrypoint: /bin/sh -c "while :; do sleep 12h; certbot renew --deploy-hook 'docker exec nginx nginx -s reload'; done"
+  
+volumes:
+  postgres_data:
