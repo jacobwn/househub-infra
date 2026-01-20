@@ -19,7 +19,6 @@ services:
       - postgres
   nginx:
     image: ghcr.io/jacobwn/househub/nginx:${IMAGE_TAG}
-    container_name: nginx
     ports:
       - "80:80"
       - "443:443"
