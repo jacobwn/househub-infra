@@ -79,6 +79,9 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.STAGING_HOST }} >> ~/.ssh/known_hosts
 
+      - name: Verify files
+        run: ls -R infra/
+
       - name: Copy infra to staging server
         run: |
           rsync -avz --delete infra/ deploy@${{ secrets.STAGING_HOST }}:/srv/househub-infra/
