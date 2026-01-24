@@ -65,6 +65,10 @@ jobs:
     steps:
       - name: Checkout infra repo
         uses: actions/checkout@v4
+        with:
+          repository: jacobwn/househub-infra
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: infra
 
       - name: Set up SSH key
         env:
