@@ -69,6 +69,8 @@ jobs:
           repository: jacobwn/househub-infra
           token: ${{ secrets.GITHUB_TOKEN }}
           path: infra
+          ref: main
+          submodules: recursive
 
       - name: Set up SSH key
         env:
