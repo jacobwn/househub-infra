@@ -7,8 +7,6 @@ services:
       - "3000"
     environment:
       DATABASE_URL: "postgresql://myuser:mypass@postgres:5432/mydb?schema=public"
-    depends_on: 
-      - postgres
     networks:
       - staging_network
   nginx:
