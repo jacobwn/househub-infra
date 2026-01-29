@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:18-bookworm
+    restart: unless-stopped
+    expose:
+      - "5432"
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypass
+      POSTGRES_DB: mydb
+    volumes:
+        - postgres_data:/var/lib/postgresql
+    networks:
+      - prod_network
+
+networks:
+  prod_network:
+    external: true
+volumes:
+  postgres_data:
