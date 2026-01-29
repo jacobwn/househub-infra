@@ -27,6 +27,8 @@ services:
     depends_on:
       - web
     
-
+networks:
+  prod_network:
+    external: true
 volumes:
   postgres_data:
