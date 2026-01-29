@@ -1,6 +1,7 @@
 services:
   postgres:
     image: postgres:18-bookworm
+    container_name: prod-postgres
     restart: unless-stopped
     expose:
       - "5432"

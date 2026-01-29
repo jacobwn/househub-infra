@@ -1,24 +1,18 @@
 services:
-  postgres:
-    image: postgres:18-bookworm
-    expose:
-      - "5432"
-    environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypass
-      POSTGRES_DB: mydb
-    volumes:
-        - postgres_data:/var/lib/postgresql
   web:
     image: ghcr.io/jacobwn/househub/web:${IMAGE_TAG}
+    container_name: prod-web
+    restart: unless-stopped
     expose:
       - "3000"
     environment:
       DATABASE_URL: "postgresql://myuser:mypass@postgres:5432/mydb?schema=public"
-    depends_on: 
-      - postgres
+    networks:
+      - prod_network
   nginx:
     image: ghcr.io/jacobwn/househub/nginx:${IMAGE_TAG}
+    container_name: prod-nginx
+    restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
@@ -26,8 +20,13 @@ services:
       - /srv/househub-data/certs/letsencrypt:/etc/letsencrypt:ro
       - /srv/househub-data/webroot:/var/www/certbot:ro
       - /srv/househub-infra/nginx/prod.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - prod_network
     depends_on:
       - web
-
+    
+networks:
+  prod_network:
+    external: true
 volumes:
   postgres_data:
