@@ -10,7 +10,7 @@ services:
     depends_on: 
       - postgres
     networks:
-      - prod_network
+      - staging_network
   nginx:
     image: ghcr.io/jacobwn/househub/nginx:${IMAGE_TAG}
     container_name: staging-nginx
@@ -23,7 +23,7 @@ services:
       - /srv/househub-data/webroot:/var/www/certbot:ro
       - /srv/househub-infra/nginx/staging.conf:/etc/nginx/conf.d/default.conf:ro
     networks:
-      - prod_network
+      - staging_network
     depends_on:
       - web
     
