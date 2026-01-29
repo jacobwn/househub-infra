@@ -28,7 +28,7 @@ services:
       - web
     
 networks:
-  prod_network:
+  staging_network:
     external: true
 volumes:
   postgres_data:
